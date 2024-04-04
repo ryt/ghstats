@@ -18,6 +18,7 @@ Usage:
 
 """
 
+import sys
 import json
 import requests
 
@@ -55,9 +56,11 @@ def process_ghstats(user, gh_tok, gen_dir):
 
 
   # -- start: process
-
-  with open(gh_tok, 'r') as file:
-    github_token = file.read().strip()
+  try:
+    with open(gh_tok, 'r') as file:
+      github_token = file.read().strip()
+  except (FileNotFoundError):
+    sys.exit(f"Sorry, the token file '{gh_tok}' could not be found.")
 
   response = requests.get(api_url, auth=('username', github_token))
   data = json.loads(response.text)
@@ -99,7 +102,7 @@ def process_ghstats(user, gh_tok, gen_dir):
 def main():
 
   if len(sys.argv) == 1:
-    print(man.strip())
+    print('For usage info, use the man or help (-h) options.')
 
   elif len(sys.argv) == 4:
     process_ghstats(user=sys.argv[1], gh_tok=sys.argv[2], gen_dir=sys.argv[3])
