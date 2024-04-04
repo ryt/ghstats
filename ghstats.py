@@ -9,12 +9,14 @@ ghstats - Github Stats
 Copyright (C) 2024 Ray Mentose.
 
 Usage:
-
+--
   ghstats      arg1          arg2             arg3
   ---------    -----------   --------------   ----------------
   ghstats      gh-username   .gh-token-file   path/to/save/dir
 
   ghstats      man|help|-h|--help|-v
+
+--
 
 """
 
@@ -107,10 +109,10 @@ def main():
   elif len(sys.argv) == 4:
     process_ghstats(user=sys.argv[1], gh_tok=sys.argv[2], gen_dir=sys.argv[3])
 
-  elif sys.argv[1] in ('man|help|-h|--help'):
+  elif sys.argv[1] in ('man','help','-h','--help'):
     print(man.strip())
 
-  elif sys.argv[1] in (''):
+  elif sys.argv[1] in ('-v', '--version'):
     print(f'Version: {v}')
 
   else:
